@@ -1,8 +1,8 @@
-const { defineConfig } = require('@vue/cli-service')
+/* const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true
-})
+}) */
 
 module.exports = {
-  publicPath: 'gitogram-vue/dist'
+  publicPath: '/gitogram-vue/dist'
 }
