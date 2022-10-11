@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import Star from '../icons/variants/star.vue'
-import Git from '../icons/variants/git.vue'
+import Star from './../../icons/variants/star.vue'
+import Git from './../../icons/variants/git.vue'
 
 export default {
   name: 'RepositoryInfo',
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped >
   .message {
     display: flex;
   }

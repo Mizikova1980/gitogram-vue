@@ -1,19 +1,14 @@
 <template>
   <div class="repository-list">
     <div class="repository-list__container">
-      <RepositoryItem v-for="user in users" :key="user.id">
+      <RepositoryItem v-for="item in items" :key="item.id">
         <div class="x-container">
           <div class="user-info">
             <Avatar
-            :avatar="user.avatar"
-            :username="user.name"/>
+            v-bind="getFeedData(item)"/>
           </div>
           <div class="repository-container">
-            <RepositoryDescription
-            :userskills="user.skills"
-            :skillsdescription="user.skillsDesc"
-            :likesCount="user.likesCount"
-            :followers="user.followers"
+            <RepositoryDescription v-bind="getFeedData(item)"
             />
           </div>
 
@@ -24,10 +19,10 @@
 </template>
 
 <script>
-import users from './data.json'
-import RepositoryItem from '@/components/RepositoryItem'
-import RepositoryDescription from './RepositoryDescription'
-import Avatar from './Avatar.vue'
+import * as api from './../../api'
+import RepositoryItem from './../repositoryItem/RepositoryItem.vue'
+import RepositoryDescription from './../repositoryDescription/RepositoryDescription.vue'
+import Avatar from './../avatar/Avatar.vue'
 
 export default {
   name: 'RepositoryList',
@@ -38,7 +33,28 @@ export default {
   },
   data () {
     return {
-      users
+      items: []
+    }
+  },
+  methods: {
+    getFeedData (item) {
+      return {
+        avatar: item.owner.avatar_url,
+        name: item.owner.login,
+        userskills: item.full_name,
+        skillsdescription: item.description,
+        likesCount: item.stargazers_count,
+        followers: item.forks
+      }
+    }
+  },
+  async created () {
+    try {
+      const { data } = await api.trendings.getTrendings()
+      this.items = data.items
+      console.log(this.items)
+    } catch (error) {
+      console.log(error)
     }
   }
 }
@@ -46,7 +62,7 @@ export default {
 
 <style scoped>
 .repository-list {
-  background: #E5E5E5;;
+  background: #fff;
 }
 .repository-list__container {
   width: 980px;
@@ -67,7 +83,7 @@ export default {
   background:#FFFFFF;
   padding: 24px 20px;
   border: 1px solid #F1F1F1;
-  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 4px 40px 0px #00000012;
   border-radius: 10px;
   margin-bottom: 18px;
 }

@@ -32,12 +32,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
 }
 .avatar__logo-img {
   height: 44px;
   width: 44px;
   border-radius: 50%;
   margin-right: 14px;
+  border-radius: 50%;
 }
 
 .avatar__text {

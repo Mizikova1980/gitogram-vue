@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Toggler from './Toggler.vue'
-import MessageList from './MessageList.vue'
+import Toggler from './../toggler/Toggler.vue'
+import MessageList from './../messageList/MessageList.vue'
 
 export default {
   name: 'RepositoryItem',
@@ -26,6 +26,6 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped >
 
 </style>

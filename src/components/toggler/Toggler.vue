@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Triangle from '@/icons/variants/triangle.vue'
+import Triangle from './../../icons/variants/triangle.vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Toggler',
@@ -27,22 +27,21 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped >
   .button {
     display: inline-flex;
     align-items: center;
     padding: 0;
 
-    .icon {
-    width: 10px;
-    transform: rotate(180deg);
   }
 
-    &.active {
-      .icon {
-        transform: rotate(0deg);
-      }
-    }
+  .button.active .icon {
+    transform: rotate(0deg);
+  }
+
+  .button .icon {
+    width: 10px;
+    transform: rotate(180deg);
   }
 
 </style>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Feeds from './components/Feeds.vue'
+import Feeds from './components/feeds/Feeds.vue'
 
 export default {
   name: 'App',

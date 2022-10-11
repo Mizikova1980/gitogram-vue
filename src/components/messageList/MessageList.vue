@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import MessageItem from './MessageItem.vue'
-import users from './data.json'
+import MessageItem from './../messageItem/MessageItem.vue'
+import users from './../data.json'
 
 export default {
   name: 'MessageList',

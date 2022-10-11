@@ -1,6 +1,6 @@
 <template>
-    <div class="c-topline">
-        <div class="x-container">
+    <div class="topline">
+        <div class="xContainer">
             <div class="headline">
                 <slot name="headline" />
             </div>
@@ -19,14 +19,14 @@ export default {
 
 </script>
 
-<style scoped lang="scss">
-    .c-topline {
+<style scoped>
+    .topline {
         background: #FAFAFA;
-        box-shadow: 0px 0.33px 0px rgba(60, 60, 67, 0.29);
+        border-bottom: 1px solid #c6c6c8;
         padding: 42px 0 32px;
         display: flex;
-
     }
+
     .headline {
         display: flex;
         justify-content: space-between;

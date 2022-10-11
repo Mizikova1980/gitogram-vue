@@ -6,8 +6,8 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import users from './data.json'
-import RepositoryInfo from './RepositoryInfo'
+import users from './../data.json'
+import RepositoryInfo from './../repositoryInfo/RepositoryInfo.vue'
 export default {
   name: 'RepositoryDescription',
   props: ['username', 'userskills', 'skillsdescription', 'likesCount', 'followers'],
@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped >
   .skills-title {
     font-size: 26px;
     font-weight: 700;

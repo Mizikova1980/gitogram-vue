@@ -1,5 +1,5 @@
 <template>
-    <button class="c-user-item" @click="$emit('onPress')">
+    <button class="userItem" @click="$emit('onPress')">
         <div class="avatar">
             <img :src="avatar" class="img" alt="username avatar" />
         </div>
@@ -22,11 +22,11 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.c-user-item {
+<style scoped>
+.userItem {
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: center;
 }
 .avatar {
     width: 80px;
@@ -34,13 +34,21 @@ export default {
     border:1px solid #A6328D;
     border-radius: 100%;
     transition: 3s;
-    &:hover {
-        border: 0px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.avatar:hover {
+  border: 0px;
 }
 .img {
-    border-radius: 100%;
+    border-radius: 50%;
     padding: 4px;
+    width: 100%;
+    height: 100%;
+
 }
 .username {
     margin-top: 10px;
