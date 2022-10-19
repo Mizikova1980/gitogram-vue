@@ -2,7 +2,7 @@
   <div class="c-topline">
     <Topline>
       <template #headline>
-        <div class="logo">
+        <div class="logo logo__black">
           <Logo/>
         </div>
         <div class="icons">
@@ -22,14 +22,14 @@
           <li class="user-item" v-for="item in items" :key="item.id" >
             <UserItem
               v-bind="getFeedData(item)"
-              @onPress="handlePress(item.id)"
+              @storyPress="$router.push({name: 'stories', params: {initialSlide: id}})"
              />
           </li>
         </ul>
       </template>
     </Topline>
   </div>
-  <RepositoryList/>
+  <RepositoryList />
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
     getFeedData (item) {
       return {
         avatar: item.owner.avatar_url,
-        name: item.owner.login
+        username: item.owner.login
       }
     }
   },
@@ -62,7 +62,6 @@ export default {
     try {
       const { data } = await api.trendings.getTrendings()
       this.items = data.items
-      console.log(this.items)
     } catch (error) {
       console.log(error)
     }
@@ -73,9 +72,10 @@ export default {
 </script>
 
 <style scoped>
-  .logo {
+  .logo__black {
       width: 174px;
       height: 35px;
+      color: black;
   }
 
   .icons {

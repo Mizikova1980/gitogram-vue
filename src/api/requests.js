@@ -9,5 +9,5 @@ export const makeRequest = ({
   method,
   data,
   baseURL,
-  headers
+  headers: { ...headers }
 })

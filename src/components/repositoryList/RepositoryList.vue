@@ -40,7 +40,7 @@ export default {
     getFeedData (item) {
       return {
         avatar: item.owner.avatar_url,
-        name: item.owner.login,
+        username: item.owner.login,
         userskills: item.full_name,
         skillsdescription: item.description,
         likesCount: item.stargazers_count,

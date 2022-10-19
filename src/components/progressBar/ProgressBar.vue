@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  title: 'ProgressBar',
+  name: 'ProgressBar',
   data () {
     return {
       active: false
