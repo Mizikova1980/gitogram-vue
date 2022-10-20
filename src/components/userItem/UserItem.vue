@@ -1,10 +1,10 @@
 <template>
-    <button class="userItem" @click="$emit('onPress')">
+    <div class="userItem" @click="$emit('onPress')">
         <div class="avatar">
             <img :src="avatar" class="img" alt="username avatar" />
         </div>
         <div class="username" :name="name">{{name}}</div>
-    </button>
+    </div>
 </template>
 
 <script>

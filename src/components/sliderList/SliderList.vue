@@ -72,12 +72,12 @@ export default {
     },
     moveSlider (slideNdx) {
       const { slider, item } = this.$refs
-      const slideWidth = parseInt(getComputedStyle(item).getPropertyValue('width'), 10)
-
-      this.slideNdx = slideNdx
-      this.slidePosition = -(slideWidth * slideNdx)
-
-      slider.style.transform = `translateX(${this.slidePosition}px)`
+      if (item) {
+        const slideWidth = parseInt(getComputedStyle(item[this.slideNdx]).getPropertyValue('width'), 10)
+        this.slideNdx = slideNdx
+        this.slidePosition = -(slideWidth * slideNdx)
+        slider.style.transform = `translateX(${this.slidePosition}px)`
+      }
     },
 
     async loadReadme () {
@@ -85,7 +85,9 @@ export default {
       this.btnShown = false
 
       try {
-        await this.fetchReadmeForActiveSlide()
+        setTimeout(async () => {
+          await this.fetchReadmeForActiveSlide()
+        }, 2000)
       } catch (error) {
         console.log(error)
         throw error

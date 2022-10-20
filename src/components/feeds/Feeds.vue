@@ -22,7 +22,7 @@
           <li class="user-item" v-for="item in items" :key="item.id" >
             <UserItem
               v-bind="getFeedData(item)"
-              @storyPress="$router.push({name: 'stories', params: {initialSlide: id}})"
+              @onPress="activateSlider(item.id)"
              />
           </li>
         </ul>
@@ -56,6 +56,12 @@ export default {
         avatar: item.owner.avatar_url,
         username: item.owner.login
       }
+    },
+    activateSlider (id) {
+      this.$router.push({
+        name: 'stories',
+        params: { initialSlide: id }
+      })
     }
   },
   async created () {
