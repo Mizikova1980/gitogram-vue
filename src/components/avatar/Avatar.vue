@@ -4,7 +4,8 @@
       <img :src="avatar" alt="" class="avatar__logo-img" />
     </div>
     <div class="avatar__text">
-      <p>{{ username }}</p>
+      <div class="'username'">{{ username }}</div>
+      <div class="usertype">{{usertype}}</div>
     </div>
   </div>
 </template>
@@ -19,6 +20,10 @@ export default {
       required: true
     },
     username: {
+      type: String,
+      required: true
+    },
+    usertype: {
       type: String,
       required: true
     }
@@ -45,5 +50,14 @@ export default {
 .avatar__text {
   font-size: 18px;
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.usertype {
+  font-size: 12px;
+  font-weight: 400;
+  color: #9E9E9E
 }
 </style>

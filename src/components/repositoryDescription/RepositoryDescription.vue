@@ -6,7 +6,6 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import users from './../data.json'
 import RepositoryInfo from './../repositoryInfo/RepositoryInfo.vue'
 export default {
   name: 'RepositoryDescription',

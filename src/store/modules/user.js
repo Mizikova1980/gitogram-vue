@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    data: [],
+    userRepos: [],
     loading: false,
     error: ''
   }

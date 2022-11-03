@@ -1,61 +1,76 @@
 <template>
-  <div class="c-topline">
+    <div class="c-topline">
     <Topline>
       <template #headline>
-        <div class="logo logo__black">
-          <Logo/>
-        </div>
-        <div class="icons">
-          <div class="icons-home">
-            <Home/>
-          </div>
-          <div class="icons-currentUser">
-            <img src="./../../../src/avatars/Oval.png" alt="avatar" />
-          </div>
-          <div class="icons-exit">
-            <Exit/>
-          </div>
-        </div>
+        <Header />
       </template>
       <template #content>
         <ul class="users">
-          <li class="user-item" v-for="item in items" :key="item.id" >
+          <li class="user-item" v-for="trending in trendings" :key="trending.id" >
             <UserItem
-              v-bind="getFeedData(item)"
-              @onPress="activateSlider(item.id)"
+              :avatar="trending.owner.avatar_url"
+              :username="trending.owner.login"
+              @onPress="activateSlider(trending.id)"
              />
           </li>
         </ul>
       </template>
     </Topline>
   </div>
-  <RepositoryList />
+  <div class="repository-list">
+    <div class="repository-list__container">
+      <ul class="repositories">
+        <li class="repository-item" v-for="starred in starreds" :key="starred.id">
+          <RepositoryItem
+            :avatar="starred.owner.avatar_url"
+            :username="starred.owner.login"
+            :userskills="starred.name"
+            :skillsdescription="starred.description"
+            :likesCount="starred.stargazers_count"
+            :followers="starred.forks"
+            :issues="starred.issues?.data"
+            :loading="starred.issues?.loading"
+            @loadContent="loadIssues({ id, owner: owner.login, repo: name})"
+          />
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
 </template>
 
 <script>
-import RepositoryList from './../repositoryList/RepositoryList.vue'
 import Topline from './../topline/Topline.vue'
-import Logo from './../../icons/variants/logo.vue'
-import Home from './../../icons/variants/home.vue'
-import Exit from './../../icons/variants/exit.vue'
+import RepositoryItem from './../repositoryItem/RepositoryItem.vue'
 import UserItem from './../userItem/UserItem.vue'
-import * as api from './../../api'
+import Header from './../header/Header.vue'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Feeds',
-  components: { RepositoryList, Topline, Logo, Home, Exit, UserItem },
-  data () {
-    return {
-      items: []
-    }
+  components: { Topline, UserItem, Header, RepositoryItem },
+  computed: {
+    ...mapState({
+      user: (state) => state.auth.user,
+      trendings: (state) => state.trendings.data,
+      starreds: (state) => state.starred.data
+    }),
+    ...mapGetters(
+      ['getUnStarredOnly'], {
+        UserAvatar: 'auth/getUserAvatar'
+      })
   },
   methods: {
-    getFeedData (item) {
-      return {
-        avatar: item.owner.avatar_url,
-        username: item.owner.login
-      }
+    ...mapActions({
+      fetchTrendings: 'trendings/fetchTrendings',
+      fetchStarred: 'starred/fetchStarred',
+      fetchIssues: 'starred/fetchIssuesForRepo'
+    }),
+
+    loadIssues ({ id, owner, repo }) {
+      this.fetchIssues({ id, owner, repo })
     },
     activateSlider (id) {
       this.$router.push({
@@ -64,13 +79,9 @@ export default {
       })
     }
   },
-  async created () {
-    try {
-      const { data } = await api.trendings.getTrendings()
-      this.items = data.items
-    } catch (error) {
-      console.log(error)
-    }
+  mounted () {
+    this.fetchTrendings()
+    this.fetchStarred({ limit: 10 })
   }
 
 }
@@ -78,38 +89,37 @@ export default {
 </script>
 
 <style scoped>
-  .logo__black {
-      width: 174px;
-      height: 35px;
-      color: black;
-  }
 
-  .icons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-    }
-  .icons-home {
-      width: 25px;
-      height: 25px;
-      margin-right: 28px;
-  }
-  .icons-currentUser {
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      margin-right: 28px;
-  }
-
-  .icons-exit {
-      width: 25px;
-      height: 25px;
-  }
   .users {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
+  .repository-list {
+  background: #fff;
+}
+.repository-list__container {
+  width: 980px;
+  margin: 0 auto;
+}
+.user-info {
+  display: flex;
+  justify-content: flex-start;
+  margin: 24px 0 16px 0;
+  }
+
+  .repository-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 979px;
+  background:#FFFFFF;
+  padding: 24px 20px;
+  border: 1px solid #F1F1F1;
+  box-shadow: 0px 4px 40px 0px #00000012;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
 
 </style>

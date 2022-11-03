@@ -3,18 +3,19 @@
         <div class="avatar">
             <img :src="avatar" class="img" alt="username avatar" />
         </div>
-        <div class="username" :name="name">{{name}}</div>
+        <div class="username" :username="username">{{username}}</div>
     </div>
 </template>
 
 <script>
 export default {
+  name: 'UserItem',
   props: {
     avatar: {
       type: String,
       required: true
     },
-    name: {
+    username: {
       type: String,
       required: true
     }

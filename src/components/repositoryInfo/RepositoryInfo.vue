@@ -1,6 +1,6 @@
 <template>
    <div class="message">
-    <button class="message__likesCount likesCount">
+    <div class="message__likesCount likesCount">
       <div class="likesCount__icon">
         <div class="likesCount__img">
           <Star/>
@@ -8,8 +8,8 @@
         <div class="likesCount__desc">Star</div>
       </div>
       <div class="likesCount__value">{{ likesCount }}</div>
-    </button>
-    <button class="message__followers followers">
+    </div>
+    <div class="message__followers followers">
       <div class="followers__icon">
         <div class="followers__img">
           <Git/>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="followers__value">{{ followers }}</div>
-    </button>
+    </div>
    </div>
 </template>
 

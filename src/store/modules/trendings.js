@@ -7,7 +7,14 @@ export default {
   },
   mutations: {
     SET_TRENDINGS: (state, trendings) => {
-      state.data = trendings
+      state.data = trendings.map(item => {
+        item.following = {
+          status: false,
+          loading: false,
+          error: ' '
+        }
+        return item
+      })
     },
     SET_README: (state, payload) => {
       state.data = state.data.map((repo) => {
@@ -38,17 +45,16 @@ export default {
     },
 
     async fetchReadme ({ state, commit, getters }, { id, owner, repo }) {
-      // eslint-disable-next-line no-undef
       const curRepo = getters.getRepoById(id)
       if (curRepo.readme !== undefined) return
       try {
         const { data } = await api.readme.getReadme({ owner, repo })
         commit('SET_README', { id, content: data })
-        console.log(data)
       } catch (error) {
         console.log(error)
         throw error
       }
     }
+
   }
 }

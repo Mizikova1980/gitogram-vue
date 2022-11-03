@@ -1,6 +1,6 @@
 
 <template>
-    <div class="slaider-wrapper" :class="{active}">
+    <div :class="['slaider-wrapper', {active:active}]">
         <div class="progress">
             <x-progressBar :active="active" @onFinish="$emit('onProgressFinish')"/>
         </div>
@@ -18,7 +18,11 @@
 
         </div>
         <div class="slider-button">
-            <xButton/>
+            <xButton
+            :loading = "data.following.loading"
+            :theme="data.following.status ? 'grey' : 'green'"
+            @click="$emit(data.following.status ? 'onUnfollow' : 'onFollow', data.id)"
+            > {{data.following.status ? 'Unfollow' : 'Follow'}}</xButton>
         </div>
         <template v-if="active">
             <button v-if="btnShown.includes('next')" class="btn btn-next" @click="$emit('onNextSlide')">
@@ -56,10 +60,13 @@ export default {
     Placeholder,
     Spinner
   },
-  emits: ['onPrevSlide', 'onNextSlide', 'onProgressFinish'],
+  emits: ['onPrevSlide', 'onNextSlide', 'onProgressFinish', 'onFollow', 'onUnFollow'],
   props: {
     active: Boolean,
     loading: Boolean,
+    fpllpwing: {
+      type: Boolean
+    },
     btnShown: {
       type: Array,
       default: () => ['next', 'prev'],
@@ -122,13 +129,16 @@ export default {
     border-bottom: 1px solid #c6c6c8;
     overflow-y: scroll;
     padding: 0 24px 0 18px;
+    margin-bottom: 24px;
 }
 
 .slider-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 32px;
+    margin: 0 53px 53px;
+    width: 270px;
+    height: 44px;
 }
 .btn {
     width: 37px;
