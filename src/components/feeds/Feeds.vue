@@ -30,7 +30,7 @@
             :followers="starred.forks"
             :issues="starred.issues?.data"
             :loading="starred.issues?.loading"
-            @loadContent="loadIssues({ id, owner: owner.login, repo: name})"
+            @loadContent="loadIssues({ id: starred.id, owner: starred.owner.login, repo: starred.name})"
           />
         </li>
       </ul>

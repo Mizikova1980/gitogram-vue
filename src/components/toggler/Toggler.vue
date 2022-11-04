@@ -18,6 +18,7 @@ export default {
       isActive: true
     }
   },
+  emits: ['btnClick'],
   methods: {
     btnClick () {
       this.isActive = !this.isActive
