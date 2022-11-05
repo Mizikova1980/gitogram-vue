@@ -9,22 +9,26 @@
 
 <script>
 import Triangle from './../../icons/variants/triangle.vue'
+import { ref } from 'vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Toggler',
   components: { Triangle },
-  data () {
-    return {
-      isActive: true
-    }
-  },
   emits: ['btnClick'],
-  methods: {
-    btnClick () {
-      this.isActive = !this.isActive
-      this.$emit('btnClick', this.isActive)
+  setup (props, { emit }) {
+    const isActive = ref(true)
+
+    const btnClick = () => {
+      isActive.value = !isActive.value
+      emit('btnClick', isActive.value)
+    }
+
+    return {
+      isActive,
+      btnClick
     }
   }
+
 }
 </script>
 

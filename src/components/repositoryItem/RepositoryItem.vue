@@ -42,6 +42,7 @@ import RepositoryDescription from './../repositoryDescription/RepositoryDescript
 import Toggler from './../toggler/Toggler.vue'
 import MessageItem from './../messageItem/MessageItem.vue'
 import ContentLoader from './../contentLoader/ContentLoader.vue'
+import { ref } from 'vue'
 
 export default {
   name: 'RepositoryItem',
@@ -81,20 +82,23 @@ export default {
     }
 
   },
-  data () {
-    return {
-      isShowMessage: false
-    }
-  },
-  methods: {
-    onTogglerClick (isShow) {
-      this.isShowMessage = isShow
+  setup (props, { emit }) {
+    const isShowMessage = ref(false)
 
-      if (isShow && this.issues?.length === 0) {
-        this.$emit('loadContent')
+    const onTogglerClick = (isShow) => {
+      isShowMessage.value = isShow
+
+      if (isShow && props.issues?.length === 0) {
+        emit('loadContent')
       }
     }
+
+    return {
+      isShowMessage,
+      onTogglerClick
+    }
   }
+
 }
 </script>
 

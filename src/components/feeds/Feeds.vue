@@ -45,43 +45,40 @@ import Topline from './../topline/Topline.vue'
 import RepositoryItem from './../repositoryItem/RepositoryItem.vue'
 import UserItem from './../userItem/UserItem.vue'
 import Header from './../header/Header.vue'
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { useStore } from 'vuex'
+import { onMounted, computed } from 'vue'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Feeds',
   components: { Topline, UserItem, Header, RepositoryItem },
-  computed: {
-    ...mapState({
-      user: (state) => state.auth.user,
-      trendings: (state) => state.trendings.data,
-      starreds: (state) => state.starred.data
-    }),
-    ...mapGetters(
-      ['getUnStarredOnly'], {
-        UserAvatar: 'auth/getUserAvatar'
-      })
-  },
-  methods: {
-    ...mapActions({
-      fetchTrendings: 'trendings/fetchTrendings',
-      fetchStarred: 'starred/fetchStarred',
-      fetchIssues: 'starred/fetchIssuesForRepo'
-    }),
+  setup () {
+    const { dispatch, state, getters } = useStore()
+    const loadIssues = ({ id, owner, repo }) => {
+      dispatch('starred/fetchIssuesForRepo', { id, owner, repo })
+    }
 
-    loadIssues ({ id, owner, repo }) {
-      this.fetchIssues({ id, owner, repo })
-    },
+    onMounted(() => {
+      dispatch('trendings/fetchTrendings')
+      dispatch('starred/fetchStarred', { limit: 10 })
+    })
+    return {
+      user: computed(() => state.auth.user),
+      trendings: computed(() => state.trendings.data),
+      starreds: computed(() => state.starred.data),
+      getUnStarredOnly: computed(() => getters.getUnStarredOnly),
+      loadIssues
+    }
+  },
+
+  methods: {
+
     activateSlider (id) {
       this.$router.push({
         name: 'stories',
         params: { initialSlide: id }
       })
     }
-  },
-  mounted () {
-    this.fetchTrendings()
-    this.fetchStarred({ limit: 10 })
   }
 
 }
