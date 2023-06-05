@@ -1,4 +1,12 @@
-# gitogram
+# gitogram (Vue.js)
+Проект веб-сервиса по готовому макету в Figma
+
+
+## Используемый стэк:
+- Vue.js, Vuex, Vue-router
+- Axios
+- API GitHub
+- HTML, SCSS, storybook
 
 ## Project setup
 ```
@@ -15,20 +23,4 @@ yarn serve
 yarn build
 ```
 
-### Run your unit tests
-```
-yarn test:unit
-```
 
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
